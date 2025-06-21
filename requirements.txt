@@ -1,0 +1,10 @@
+streamlit
+fastapi
+uvicorn
+pandas
+prophet
+python-jose
+requests
+PyJWT
+python-dotenv
+bcrypt==3.2.2
