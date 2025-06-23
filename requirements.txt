@@ -14,3 +14,4 @@ reportlab
 openai
 xlsxwriter
 streamlit-extras
+python-telegram-bot==13.15
