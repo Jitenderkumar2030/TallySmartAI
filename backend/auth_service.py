@@ -1,5 +1,5 @@
 # auth_service.py
-from models import SessionLocal, User
+from backend.models import SessionLocal, User  
 from passlib.hash import bcrypt
 import jwt
 import os
