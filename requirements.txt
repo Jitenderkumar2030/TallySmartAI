@@ -11,3 +11,5 @@ bcrypt==3.2.2
 sqlalchemy
 passlib[bcrypt]
 reportlab
+openai
+xlsxwriter
