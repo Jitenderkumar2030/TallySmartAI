@@ -13,3 +13,4 @@ passlib[bcrypt]
 reportlab
 openai
 xlsxwriter
+streamlit-extras
