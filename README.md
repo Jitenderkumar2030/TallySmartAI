@@ -1,8 +1,4 @@
-Here’s a complete and professional `README.md` file for your **TallySmartAI** project:
 
----
-
-````markdown
 # 📊 TallySmartAI
 
 **TallySmartAI** is an AI-powered financial forecasting and advisory platform built to automate analysis, generate business insights from Tally data, and provide personalized financial guidance — all in a few clicks.
