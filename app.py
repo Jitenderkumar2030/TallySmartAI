@@ -56,7 +56,7 @@ with col_review:
 st.markdown("---")
 footer = """
 <div style='text-align: center; padding: 10px; font-size: 14px;'>
-    © 2025 <strong>TallySmartAI</strong> | Built with ❤️ using Streamlit  
+    © 2025 <strong>TallySmartAI</strong> | Built with ❤️ uBy Jitender Kumar 
     <br>Need help? <a href="/7_Contact_Us" target="_self">📞 Contact Support</a>
 </div>
 """

@@ -11,7 +11,6 @@ from backend.telegram_alert import send_forecast_alert
 from backend.cashfree import create_subscription_session
 
 st.set_page_config(page_title="Dashboard - TallySmartAI", layout="wide")
-
 st.title("📊 TallySmartAI Dashboard")
 
 # Token Check
@@ -20,6 +19,7 @@ if not token:
     st.warning("🔐 Please login to access the dashboard.")
     st.stop()
 
+# Decode JWT
 try:
     payload = jwt.decode(token, "testsecret", algorithms=["HS256"])
 except:
@@ -27,19 +27,46 @@ except:
     st.session_state.clear()
     st.stop()
 
+# Show Welcome
 st.success(f"Welcome {payload['email']}! Role: `{payload['role']}`")
 
-# Upgrade prompt for Free Users
+# Logout button (available for all)
+if st.button("🚪 Logout"):
+    st.session_state.clear()
+    st.success("Logged out successfully. Please refresh the page.")
+    st.stop()
+
+# ----------- Free User Section -----------
 if payload["role"] == "free":
-    st.warning("🔓 Upgrade to Pro to unlock full features.")
-    if st.button("💳 Generate Payment Link"):
+    st.warning("🆓 You're using the Free Plan — upgrade for full features!")
+
+    st.subheader("📦 What You Get in Free Plan")
+    st.markdown("""
+    - ✅ Basic dashboard overview
+    - 📊 Transaction summary from uploaded CSV
+    - 🚀 Upgrade to unlock AI forecasting, PDF/Excel export, advisor chat, and more
+    """)
+
+    # Payment link
+    if st.button("💳 Upgrade to Pro"):
         sub_url = create_subscription_session(payload["email"])
         if sub_url:
-            st.markdown(f"[Click here to Upgrade to Pro]({sub_url})", unsafe_allow_html=True)
+            st.markdown(f"[Click here to Upgrade]({sub_url})", unsafe_allow_html=True)
         else:
-            st.error("❌ Failed to create subscription link.")
+            st.error("❌ Failed to generate payment link.")
 
-# Only Pro/Admin gets full features
+    # CSV Upload + Stats (only summary, no prediction)
+    st.subheader("📁 Upload CSV to View Summary")
+    uploaded_file = st.file_uploader("Upload your Tally CSV", type=["csv"])
+    if uploaded_file:
+        df = pd.read_csv(uploaded_file)
+        st.dataframe(df.head())
+        st.metric("🔢 Total Transactions", len(df))
+        st.metric("💰 Total Revenue", f"₹ {df['Amount'].sum():,.2f}")
+        st.metric("🏆 Top Ledger", df['Ledger'].value_counts().idxmax())
+        st.bar_chart(df.groupby("Ledger")["Amount"].sum())
+
+# ----------- Pro/Admin Section -----------
 if payload["role"] in ["pro", "admin"]:
     st.subheader("🧠 Ask Financial Advisor")
     question = st.text_area("Ask any business/tax question:")
@@ -59,7 +86,6 @@ if payload["role"] in ["pro", "admin"]:
         st.dataframe(df_uploaded.head())
 
         try:
-            # Send to AI Prediction API
             files = {"file": uploaded_file.getvalue()}
             r = requests.post(
                 "http://localhost:8000/predict",
@@ -76,15 +102,13 @@ if payload["role"] in ["pro", "admin"]:
                 st.line_chart(df.set_index("ds")["yhat"])
 
                 # Downloads
-                csv = df.to_csv(index=False).encode("utf-8")
-                st.download_button("📥 Download CSV", csv, "forecast.csv", "text/csv")
-
+                st.download_button("📥 Download CSV", df.to_csv(index=False), "forecast.csv")
                 excel_io = io.BytesIO()
                 with pd.ExcelWriter(excel_io, engine="xlsxwriter") as writer:
                     df.to_excel(writer, index=False, sheet_name="Forecast")
                 st.download_button("📥 Download Excel", excel_io.getvalue(), "forecast.xlsx")
 
-                # PDF Generation
+                # PDF
                 pdf_io = io.BytesIO()
                 c = canvas.Canvas(pdf_io, pagesize=letter)
                 width, height = letter
@@ -119,11 +143,9 @@ if payload["role"] in ["pro", "admin"]:
         except Exception as e:
             st.error(f"⚠️ AI API call failed: {e}")
             st.markdown("### 🧪 Showing Dummy Insights")
-            # Fallback: show dummy summary
             st.metric("Total Transactions", len(df_uploaded))
             st.metric("Total Revenue", f"₹ {df_uploaded['Amount'].sum():,.2f}")
             st.metric("Top Ledger", df_uploaded['Ledger'].value_counts().idxmax())
-
             st.bar_chart(df_uploaded.groupby("Ledger")["Amount"].sum())
 
     else:
