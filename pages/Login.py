@@ -11,6 +11,6 @@ if st.button("Login"):
     if token:
         st.session_state["token"] = token
         st.success("✅ Login successful.")
-        st.experimental_rerun()
+        st.rerun()
     else:
         st.error("❌ Invalid credentials.")
