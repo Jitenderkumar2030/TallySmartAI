@@ -56,15 +56,41 @@ if payload["role"] == "free":
             st.error("❌ Failed to generate payment link.")
 
     # CSV Upload + Stats (only summary, no prediction)
-    st.subheader("📁 Upload CSV to View Summary")
-    uploaded_file = st.file_uploader("Upload your Tally CSV", type=["csv"])
-    if uploaded_file:
-        df = pd.read_csv(uploaded_file)
-        st.dataframe(df.head())
-        st.metric("🔢 Total Transactions", len(df))
-        st.metric("💰 Total Revenue", f"₹ {df['Amount'].sum():,.2f}")
-        st.metric("🏆 Top Ledger", df['Ledger'].value_counts().idxmax())
-        st.bar_chart(df.groupby("Ledger")["Amount"].sum())
+    # CSV Upload + Enhanced Stats for Free Users
+st.subheader("📁 Upload CSV to View Summary & Insights")
+uploaded_file = st.file_uploader("Upload your Tally CSV", type=["csv"])
+
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.dataframe(df.head())
+
+    # Basic Metrics
+    st.metric("🔢 Total Transactions", len(df))
+    st.metric("💰 Total Revenue", f"₹ {df['Amount'].sum():,.2f}")
+    st.metric("🏆 Top Ledger", df['Ledger'].value_counts().idxmax())
+
+    # Monthly Revenue Trend
+    try:
+        df["Date"] = pd.to_datetime(df["Date"])
+        monthly = df.groupby(df["Date"].dt.to_period("M"))["Amount"].sum().reset_index()
+        monthly["Date"] = monthly["Date"].astype(str)
+        st.subheader("📈 Monthly Revenue Trend")
+        st.line_chart(monthly.set_index("Date")["Amount"])
+    except:
+        st.warning("⚠️ Could not generate monthly trend. Please check date format.")
+
+    # Revenue by Ledger (Pie Chart)
+    st.subheader("🍰 Revenue by Ledger")
+    ledger_totals = df.groupby("Ledger")["Amount"].sum()
+    st.pyplot(ledger_totals.plot.pie(autopct="%1.1f%%", figsize=(6, 6), title="Ledger-wise Revenue").figure)
+
+    # Top 5 Ledgers
+    st.subheader("📉 Top 5 Ledgers by Revenue")
+    top_ledgers = ledger_totals.sort_values(ascending=False).head(5)
+    st.bar_chart(top_ledgers)
+
+else:
+    st.info("📤 Please upload your Tally CSV to see insights.")
 
 # ----------- Pro/Admin Section -----------
 if payload["role"] in ["pro", "admin"]:
