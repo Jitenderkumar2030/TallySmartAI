@@ -1,6 +1,5 @@
 import streamlit as st
 from backend.auth_service import create_user
-from streamlit_extras.switch_page_button import switch_page  # Make sure this is installed
 
 st.set_page_config(page_title="Sign Up - TallySmartAI")
 
@@ -14,11 +13,8 @@ if st.button("Sign up"):
     try:
         success = create_user(email, pw, role)
         if success:
-            st.success("✅ Account created successfully! Redirecting to Login...")
-            st.rerun()  # Refresh session
-            switch_page("Login")  # This must match your Login.py page name without `.py`
+            st.success("✅ Account created! Please [Login here](/Login)")
         else:
-            st.error("❌ Signup failed. Try again.")
+            st.error("❌ Signup failed.")
     except Exception as e:
         st.error(f"❌ Error: {e}")
-
