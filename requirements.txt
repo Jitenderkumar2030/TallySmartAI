@@ -1,18 +1,42 @@
+# Web & App Frameworks
 streamlit
 fastapi
 uvicorn
+
+# Data & Machine Learning
 pandas
 prophet
-python-jose
-requests
-PyJWT
-python-dotenv
-bcrypt==3.2.2
-sqlalchemy
-passlib[bcrypt]
-reportlab
+numpy
+scikit-learn
+
+# AI & Language Models
 openai
-xlsxwriter
-streamlit-extras
-python-telegram-bot==13.15
+transformers
+datasets
+sentencepiece
+
+# Deep RL (for FinRL)
+gym
+stable-baselines3[extra]
+
+# Auth & Security
+python-jose
+PyJWT
+bcrypt==3.2.2
+passlib[bcrypt]
 python-dotenv
+
+# Reporting & Visualization
+reportlab
+xlsxwriter
+matplotlib
+seaborn
+
+# Telegram Bot
+python-telegram-bot==13.15
+
+# Streamlit Extensions
+streamlit-extras
+
+# API & Network
+requests

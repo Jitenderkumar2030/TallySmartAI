@@ -8,7 +8,7 @@ st.set_page_config(page_title="TallySmartAI", page_icon="📊", layout="wide")
 page = st.session_state.get("page")
 if page == "login":
     st.session_state["page"] = None
-    st.switch_page("pages/Login.py")  # Ensure this page exists
+    st.switch_page("pages/Login.py")
 elif page == "dashboard":
     st.session_state["page"] = None
     st.switch_page("pages/Dashboard.py")
@@ -30,9 +30,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("""
+st.markdown("""  
 ### AI-Powered Forecasting & Financial Advisory Platform  
-> Upload Tally CSV. Get instant forecasts, financial insights, and downloadable reports.
+> Upload Tally CSV. Get instant forecasts, financial insights, and downloadable reports.  
 """)
 
 # Login / Signup Buttons
@@ -44,7 +44,7 @@ with col1:
 with col2:
     if st.button("📝 Signup", use_container_width=True):
         st.session_state["page"] = "signup"
-        st.switch_page("pages/Signup.py")  # Adjust path as needed
+        st.switch_page("pages/Signup.py")
 
 # Features
 st.markdown("### 🔍 Explore More")
@@ -56,10 +56,12 @@ with col_feat:
     st.markdown("""
 - 📈 **Instant Financial Forecasting**  
 - 🤖 **AI-powered Business Insights**  
-- 🧾 **Auto-generated Reports & Analysis**  
-- 🔒 **End-to-End Data Security**  
-- 🌐 **Access Anywhere, Anytime**
-""")
+- 📄 **Auto-generated Reports & Trend Analysis**  
+- 🔐 **End-to-End Data Security**  
+- 🌐 **Access Anywhere, Anytime**  
+- 🧠 **FinGPT AI Analyst** — Ask finance, business, or tax questions to an advanced language model  
+- 🧮 **FinRL Smart Recommendation Engine** — Reinforcement Learning engine to suggest strategic financial actions
+    """)
 
 with col_review:
     st.subheader("💬 What Our Users Say")
@@ -75,4 +77,3 @@ st.markdown("""
     <br>Need help? <a href="/7_Contact_Us" target="_self">📞 Contact Support</a>
 </div>
 """, unsafe_allow_html=True)
-
