@@ -15,8 +15,13 @@ elif page == "dashboard":
 
 # Sidebar
 with st.sidebar:
-    st.title("🧭 Navigation")
+    st.title("🧭 TallySmartAI Academy")
     st.markdown("Navigate using the sidebar or use buttons below 👇")
+    if st.button("📚 TCFA Certification"):
+        st.switch_page("pages/Certification.py")
+
+    if st.button("🎓 TCFA Course"):
+        st.switch_page("pages/Course.py")
 
 # Landing Page
 st.title("📊 Welcome to TallySmartAI")
@@ -68,6 +73,29 @@ with col_review:
     st.success("“TallySmartAI saved us hours of manual effort each week. The insights are spot on!” – Priya, CFO at RetailNest")
     st.info("“Seamless integration and excellent support. Game-changer for small businesses.” – Rohan, Founder of GreenMart")
     st.warning("“Loved the reports and visual insights. Helped us make faster decisions.” – Meena, Head of Finance at FinBridge")
+
+# Certification / Course Section
+st.markdown("---")
+st.header("🎓 TallySmartAI Certified Financial Analyst Program (TCFA)")
+
+st.markdown("""
+Become a **TallySmartAI Certified Financial Analyst (TCFA)** and master AI-powered accounting, forecasting, and analytics.
+
+✅ What you’ll learn:
+- Upload & manage Tally data effectively  
+- Use AI forecasting & FinRL recommendations  
+- Get answers from FinGPT for business/tax queries  
+- Generate insightful PDF/Excel reports  
+- Securely handle financial data
+
+💼 **Ideal for** accountants, business owners, finance students, and professionals looking to boost their skills.
+
+💰 **Course Fees:** INR 2,999 – 4,999 per participant
+
+📜 **Certification:** Receive an industry-recognized certificate upon successful completion.
+
+[👉 Enroll in TCFA Now](https://your-enrollment-form-or-payment-link.com)
+""", unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
