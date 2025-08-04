@@ -13,5 +13,7 @@ if not TELEGRAM_BOT_TOKEN:
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 
 def send_forecast_alert(user_id, message):
+    # Telegram bot integration
+    # Real-time notifications
     bot.send_message(chat_id=user_id, text=message)
 

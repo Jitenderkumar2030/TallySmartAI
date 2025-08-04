@@ -3,7 +3,9 @@ import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def ask_fingpt(question: str) -> str:
+def ask_fingpt(question):
+    # Specialized financial AI model
+    # Business and tax query handling
     try:
         response = openai.ChatCompletion.create(
             model="gpt-4",

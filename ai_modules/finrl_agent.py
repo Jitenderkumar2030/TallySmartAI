@@ -27,6 +27,8 @@ class SimpleFinanceEnv(Env):
         return self._next_observation(), reward, done, {}
 
 def train_agent(df):
+    # Reinforcement learning model
+    # Financial strategy recommendations
     env = SimpleFinanceEnv(df)
     model = A2C("MlpPolicy", env, verbose=0)
     model.learn(total_timesteps=1000)

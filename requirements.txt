@@ -40,3 +40,20 @@ streamlit-extras
 
 # API & Network
 requests
+
+# Add these new dependencies
+plotly
+scikit-learn
+sqlite3
+
+# Voice Recognition & TTS
+SpeechRecognition
+pyttsx3
+pyaudio
+
+# PDF Processing
+PyPDF2
+pdfplumber
+
+# Additional ML libraries
+scikit-learn

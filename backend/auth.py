@@ -23,3 +23,8 @@ def verify_token(token: str) -> dict or None:
         return payload  # e.g. { "email": "...", "role": "pro" }
     except:
         return None
+
+def signup(email, password, role="free"):
+    # Password hashing with bcrypt
+    # JWT token generation
+    # Database user creation

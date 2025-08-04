@@ -1,0 +1,93 @@
+/* Mobile-First Responsive Design */
+@media (max-width: 768px) {
+    /* Streamlit container adjustments */
+    .main .block-container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        max-width: 100% !important;
+    }
+    
+    /* Dashboard cards */
+    .metric-card {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* File upload area */
+    .uploadedFile {
+        font-size: 0.9rem !important;
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+        font-size: 1rem !important;
+        padding: 0.75rem !important;
+    }
+    
+    /* Charts and plots */
+    .js-plotly-plot {
+        width: 100% !important;
+        height: 300px !important;
+    }
+    
+    /* Tables */
+    .dataframe {
+        font-size: 0.8rem !important;
+        overflow-x: auto !important;
+    }
+    
+    /* Sidebar */
+    .css-1d391kg {
+        width: 100% !important;
+    }
+    
+    /* Text inputs */
+    .stTextInput > div > div > input {
+        font-size: 1rem !important;
+    }
+    
+    /* Selectbox */
+    .stSelectbox > div > div > select {
+        font-size: 1rem !important;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main .block-container {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    .js-plotly-plot {
+        height: 400px !important;
+    }
+}
+
+/* Touch-friendly elements */
+@media (hover: none) and (pointer: coarse) {
+    .stButton > button {
+        min-height: 44px !important;
+        touch-action: manipulation;
+    }
+    
+    .stSelectbox select {
+        min-height: 44px !important;
+    }
+    
+    .stTextInput input {
+        min-height: 44px !important;
+    }
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+    .main {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}

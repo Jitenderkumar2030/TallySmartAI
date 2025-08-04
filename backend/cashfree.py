@@ -6,7 +6,9 @@ CASHFREE_PLAN_ID = "Plan_INR"
 CASHFREE_AUTH_URL = "https://sandbox.cashfree.com/pg/auth/login"
 CASHFREE_SUBSCRIPTION_URL = "https://sandbox.cashfree.com/pg/subscription/v1/create"
 
-def create_subscription_session(email):
+def create_subscription_session(email, plan_id):
+    # Cashfree payment gateway integration
+    # Subscription management
     try:
         # Auth Step
         auth_res = requests.post(
